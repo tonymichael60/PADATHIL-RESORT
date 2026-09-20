@@ -7,7 +7,7 @@
 <meta name="description" content="Discover Padathil Stays, a family-run hospitality group offering private villa stays in Vattavada, Vembanad Lake and Bhoothathankettu, Kerala." />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://padathilstays.com/" />
-<link rel="icon" type="image/svg+xml" href="images/emblem-rotating.svg" />
+<link rel="icon" type="image/webp" href="images/padathil-symbol-transparent.webp" />
 <meta name="theme-color" content="#18372d" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Padathil Stays" />
@@ -22,7 +22,7 @@
   "@type": "Organization",
   "name": "Padathil Stays",
   "url": "https://padathilstays.com/",
-  "logo": "https://padathilstays.com/images/logo-padathil-stays.svg",
+  "logo": "https://padathilstays.com/images/padathil-stays-logo-transparent.webp",
   "description": "A family-run hospitality group offering private villa stays across Kerala.",
   "foundingDate": "2012",
   "telephone": "+91 94477 38990",
@@ -40,81 +40,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="site.css" />
-<style>
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Prompt', system-ui, sans-serif; color: #18372d; -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, h4, h5, h6 { font-family: 'Yeseva One', Georgia, serif; color: #18372d; text-transform: uppercase; font-weight: 400; }
-  .wrap { max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-  .body-copy { color: #4f544c; font-size: 13px; line-height: 2.05; font-weight: 300; }
-  .vbtn { display:inline-block; padding:8px 0; width:150px; text-align:center; background:#535353; color:#fff;
-          font-size:11px; letter-spacing:.14em; text-transform:uppercase; transition:background .25s ease; }
-  .vbtn:hover { background:#9d6a32; }
 
-  /* hero scroll cue */
-  .scroll-cue { width:16px; height:16px; border-left:1px solid rgba(255,255,255,.85); border-bottom:1px solid rgba(255,255,255,.85);
-                transform:rotate(-45deg); animation:cue 2s ease-in-out infinite; }
-  @keyframes cue { 0%,100%{transform:translateY(0) rotate(-45deg);opacity:.5} 50%{transform:translateY(6px) rotate(-45deg);opacity:1} }
-
-  /* experience heading rule */
-  .exp-title span { position:relative; background:#f8f7f0; padding:0 26px; }
-  .exp-title span::before, .exp-title span::after { content:""; position:absolute; top:52%; width:220px; height:2px; background:#d8d4c6; }
-  .exp-title span::before { right:100%; }
-  .exp-title span::after { left:100%; }
-
-  /* fixed header fade-in on scroll */
-  #siteHeader { transition: opacity .5s ease, transform .5s ease; }
-  #siteHeader.hidden-top { opacity:0; transform:translateY(-8px); pointer-events:none; }
-</style>
+<script src="site.js" defer></script>
 </head>
-<body>
+<body class="is-loading">
+  <div id="pageLoader" class="page-loader" role="status" aria-label="Loading Padathil Stays">
+    <img src="images/padathil-stays-logo-transparent.webp" alt="Padathil Stays" />
+    <span>Kerala, India</span>
+  </div>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <!-- ================= FIXED HEADER (fades in after scroll) ================= -->
-  <header id="siteHeader" class="hidden-top fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-hairline">
-    <div class="wrap compact-header flex items-center justify-between h-[70px]">
-      <a href="#top" class="flex items-center gap-3">
-        <img src="images/emblem-rotating.svg" alt="" aria-hidden="true" class="h-14 w-14" />
-        <img src="images/logo-padathil-stays.svg" alt="Padathil Stays" class="h-9 w-auto" />
-      </a>
-      <nav class="hidden lg:flex items-center gap-9 font-sans text-[11px] font-light tracking-[.22em] uppercase text-nandor" aria-label="Primary navigation">
-        <details class="relative stay-menu-toggle">
-          <summary class="cursor-pointer hover:text-gold transition-colors">Stay</summary>
-          <div class="stay-menu absolute left-0 top-full pt-3">
-            <div class="bg-white border border-hairline shadow-lg py-2 w-[220px] normal-case tracking-normal text-[12px]">
-              <a href="nature-castle-vattavada.html" class="block px-5 py-2.5 hover:bg-creamalt hover:text-gold transition-colors">Nature Castle Vattavada</a>
-              <a href="niva-waterways.html" class="block px-5 py-2.5 hover:bg-creamalt hover:text-gold transition-colors">Niva Waterways</a>
-              <a href="riparian-ayur-resorts.html" class="block px-5 py-2.5 hover:bg-creamalt hover:text-gold transition-colors">Riparian Ayur Resorts</a>
-            </div>
+  <header id="siteHeader" class="site-header">
+  <div class="wrap compact-header">
+    <a href="index.html" class="site-brand" aria-label="Padathil Stays home">
+      <img src="images/padathil-symbol-transparent.webp" alt="" width="52" height="52" class="site-logo site-logo--header" />
+      <span>Padathil Stays</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a data-nav-link href="index.html">Home</a>
+      <details class="stay-menu-toggle">
+        <summary>Stays</summary>
+        <div class="stay-menu stay-menu--picker">
+          <div class="stay-picker">
+            <p class="stay-picker-label">Choose your setting</p>
+            <a href="nature-castle-vattavada.html" class="stay-option"><span class="stay-option-index">01</span><span class="stay-option-copy"><b>Nature Castle Resort</b><small>Vattavada highlands</small></span></a>
+            <a href="niva-waterways.html" class="stay-option"><span class="stay-option-index">02</span><span class="stay-option-copy"><b>Niva Waterways</b><small>Vembanad Lake</small></span></a>
+            <a href="riparian-ayur-resorts.html" class="stay-option"><span class="stay-option-index">03</span><span class="stay-option-copy"><b>Riparian Ayur Resorts</b><small>Bhoothathankettu forest</small></span></a>
           </div>
-        </details>
-        <a href="#dining" class="hover:text-gold transition-colors">Dining</a>
-        <a href="experiences.html" class="hover:text-gold transition-colors">Experiences</a>
-        <a href="blog.html" class="hover:text-gold transition-colors">Blog</a>
-        <a href="about.html" class="hover:text-gold transition-colors">About</a>
-        <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
-      </nav>
-      <div class="flex items-center gap-3">
-        <details class="relative lg:hidden">
-          <summary aria-label="Open navigation menu" class="list-none cursor-pointer border border-nandor px-3 py-2 text-nandor [&::-webkit-details-marker]:hidden">
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1h16M1 7h16M1 13h16"/></svg>
-          </summary>
-          <nav aria-label="Mobile navigation" class="absolute right-0 top-full mt-2 w-[245px] border border-hairline bg-white p-4 shadow-lg font-sans text-[11px] font-light uppercase tracking-[.16em] text-nandor">
-            <a href="#properties" class="block py-2 hover:text-gold">Properties</a>
-            <a href="nature-castle-vattavada.html" class="block py-2 normal-case tracking-normal hover:text-gold">Nature Castle Vattavada</a>
-            <a href="niva-waterways.html" class="block py-2 normal-case tracking-normal hover:text-gold">Niva Waterways</a>
-            <a href="riparian-ayur-resorts.html" class="block py-2 normal-case tracking-normal hover:text-gold">Riparian Ayur Resorts</a>
-            <a href="#dining" class="block py-2 hover:text-gold">Dining</a>
-            <a href="experiences.html" class="block py-2 hover:text-gold">Experiences</a>
-            <a href="blog.html" class="block py-2 hover:text-gold">Blog</a>
-            <a href="about.html" class="block py-2 hover:text-gold">About</a>
-            <a href="contact.html" class="block py-2 hover:text-gold">Contact</a>
-          </nav>
-        </details>
-        <a href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire.%0AProperty%3A%20%0ACheck-in%3A%20%0ACheck-out%3A%20%0AGuests%3A%20%0AQuestions%3A%20" target="_blank" rel="noopener"
-           class="font-poppins text-[10px] font-medium tracking-[.18em] uppercase border border-nandor text-nandor px-4 sm:px-6 py-2.5 hover:bg-nandor hover:text-white transition-colors">Book Now</a>
-      </div>
+        </div>
+      </details>
+      <a href="index.html#dining">Dining</a>
+      <a data-nav-link href="experiences.html">Experiences</a>
+      <a data-nav-link href="gallery.html">Gallery</a>
+      <a data-nav-link href="blog.html">Journal</a>
+      <a data-nav-link href="about.html">About</a>
+      <a data-nav-link href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation menu">
+          <svg width="19" height="15" viewBox="0 0 19 15" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1 1h17M1 7.5h17M1 14h17"/></svg>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          <a data-nav-link href="index.html">Home</a>
+          <p class="mobile-stay-label">Choose a stay</p>
+          <a class="mobile-stay-link" href="nature-castle-vattavada.html">Nature Castle · Vattavada</a>
+          <a class="mobile-stay-link" href="niva-waterways.html">Niva · Vembanad Lake</a>
+          <a class="mobile-stay-link" href="riparian-ayur-resorts.html">Riparian · Bhoothathankettu</a>
+          <a href="index.html#dining">Dining</a>
+          <a data-nav-link href="experiences.html">Experiences</a>
+          <a data-nav-link href="gallery.html">Gallery</a>
+          <a data-nav-link href="blog.html">Journal</a>
+          <a data-nav-link href="about.html">About</a>
+          <a data-nav-link href="faq.html">FAQ</a>
+          <a data-nav-link href="contact.html">Contact</a>
+        </nav>
+      </details>
+      <a href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire.%0AProperty%3A%20%0ACheck-in%3A%20%0ACheck-out%3A%20%0AGuests%3A%20%0AQuestions%3A%20" target="_blank" rel="noopener" class="vbtn header-book">Book Now</a>
     </div>
-  </header>
+  </div>
+</header>
 
   <main id="main-content">
   <!-- ================= HERO ================= -->
@@ -124,13 +110,8 @@
 
     <!-- centred logo -->
     <figure class="home-hero-brand absolute left-1/2 -translate-x-1/2 top-[50px] w-[420px] text-center">
-      <img src="images/emblem-rotating.svg" alt="" aria-hidden="true" class="mx-auto w-24 h-24" />
-      <img src="images/logo-padathil-stays-white.svg" alt="Padathil Stays" class="mx-auto mt-2 w-full h-auto" />
+      <img src="images/padathil-stays-logo-transparent.webp" alt="Padathil Stays" class="site-logo home-hero-logo mx-auto" />
     </figure>
-
-    <!-- top-right book -->
-    <a href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire.%0AProperty%3A%20%0ACheck-in%3A%20%0ACheck-out%3A%20%0AGuests%3A%20%0AQuestions%3A%20" target="_blank" rel="noopener"
-       class="absolute right-6 top-7 font-poppins text-[10px] font-medium tracking-[.24em] uppercase text-white border border-white/70 px-6 py-2.5 hover:bg-white hover:text-nandor transition-colors">Book Now</a>
 
     <!-- caption -->
     <div class="hero-copy absolute left-0 bottom-[80px] w-full text-center px-6">
@@ -174,11 +155,11 @@
         <p class="body-copy">Every destination has its own character. Every Padathil property offers a different way to experience it.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <a href="nature-castle-vattavada.html" class="property-card group block bg-white">
+        <a href="nature-castle-vattavada.html" class="property-card stay-choice group block bg-white">
           <figure class="overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1742107939655-4f8af7484dfa?fm=jpg&q=75&w=900&auto=format&fit=crop" alt="Representative mountain landscape near Vattavada, Kerala" width="900" height="700" loading="lazy" decoding="async" class="w-full aspect-[9/7] object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="images/exper-1.webp" alt="Representative mountain landscape near Vattavada, Kerala" width="900" height="700" loading="lazy" decoding="async" class="w-full aspect-[9/7] object-cover transition-transform duration-700 group-hover:scale-105" />
           </figure>
-          <div class="p-6">
+          <div class="stay-choice-content p-6">
             <span class="property-index">01 · Vattavada Highlands</span>
             <h3 class="text-[18px] tracking-[.03em] pb-2">Nature Castle Resort Vattavada</h3>
             <p class="body-copy">A rustic mountain retreat with scenic views, villa-style accommodation and peaceful natural surroundings.</p>
@@ -186,11 +167,11 @@
             <span class="vbtn mt-5">Explore Nature Castle</span>
           </div>
         </a>
-        <a href="niva-waterways.html" class="property-card group block bg-white">
+        <a href="niva-waterways.html" class="property-card stay-choice group block bg-white">
           <figure class="overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1785932413547-cdd1159e1f1e?fm=jpg&q=75&w=900&auto=format&fit=crop" alt="Representative backwater landscape in Kerala" width="900" height="700" loading="lazy" decoding="async" class="w-full aspect-[9/7] object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="images/exper-2.webp" alt="Representative backwater landscape in Kerala" width="900" height="700" loading="lazy" decoding="async" class="w-full aspect-[9/7] object-cover transition-transform duration-700 group-hover:scale-105" />
           </figure>
-          <div class="p-6">
+          <div class="stay-choice-content p-6">
             <span class="property-index">02 · Vembanad Lake</span>
             <h3 class="text-[18px] tracking-[.03em] pb-2">Niva Waterways</h3>
             <p class="body-copy">A premium lake-facing villa with spacious accommodation and water experiences for families and groups.</p>
@@ -198,11 +179,11 @@
             <span class="vbtn mt-5">Explore Niva Waterways</span>
           </div>
         </a>
-        <a href="riparian-ayur-resorts.html" class="property-card group block bg-white">
+        <a href="riparian-ayur-resorts.html" class="property-card stay-choice group block bg-white">
           <figure class="overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1642521080342-4de27e5f8005?fm=jpg&q=75&w=900&auto=format&fit=crop" alt="Representative forest landscape near Bhoothathankettu, Kerala" width="900" height="700" loading="lazy" decoding="async" class="w-full aspect-[9/7] object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="images/exper-3.webp" alt="Representative forest landscape near Bhoothathankettu, Kerala" width="900" height="700" loading="lazy" decoding="async" class="w-full aspect-[9/7] object-cover transition-transform duration-700 group-hover:scale-105" />
           </figure>
-          <div class="p-6">
+          <div class="stay-choice-content p-6">
             <span class="property-index">03 · Bhoothathankettu</span>
             <h3 class="text-[18px] tracking-[.03em] pb-2">Riparian Ayur Resorts</h3>
             <p class="body-copy">A peaceful nature retreat near Bhoothathankettu and Thattekad Bird Sanctuary.</p>
@@ -277,7 +258,7 @@
   <!-- ================= WEDDING / AYURVEDA ================= -->
   <section class="bg-cream">
     <div class="grid md:grid-cols-2">
-      <a href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire%20about%20a%20destination%20wedding." target="_blank" rel="noopener" class="group relative block h-[320px] md:h-[430px] overflow-hidden">
+      <a href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire%20about%20a%20destination%20wedding." target="_blank" rel="noopener" class="feature-tile group relative block h-[320px] md:h-[430px] overflow-hidden">
         <img src="images/destination-wedding-th.webp" alt="Private celebration in a Kerala setting"
              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
         <span class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"></span>
@@ -290,7 +271,7 @@
         </span>
         </span>
       </a>
-      <a href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire%20about%20Ayurveda%20and%20wellness." target="_blank" rel="noopener" class="group relative block h-[320px] md:h-[430px] overflow-hidden">
+      <a href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire%20about%20Ayurveda%20and%20wellness." target="_blank" rel="noopener" class="feature-tile group relative block h-[320px] md:h-[430px] overflow-hidden">
         <img src="images/ayur-wellness-th.webp" alt="Wellness experience in a Kerala setting"
              class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
         <span class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"></span>
@@ -335,65 +316,19 @@
   </main>
 
   <!-- ================= FOOTER ================= -->
-  <footer id="footer" class="bg-footerbg text-footertext">
-    <div class="wrap max-w-[1140px]">
-      <!-- contact row -->
-      <div class="py-9 border-b border-footerline flex flex-col md:flex-row items-center justify-between gap-5 text-[12px] tracking-[.04em]">
-        <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-          <a href="tel:+919447738990" class="flex items-center gap-2 hover:text-[#8fae7c] transition-colors">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 11.5a16 16 0 006 6l1.1-1.1a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>
-            +91 94477 38990
-          </a>
-          <a href="mailto:Padathilstays.reservations@gmail.com" class="flex items-center gap-2 hover:text-[#8fae7c] transition-colors">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="4" width="20" height="16" rx="1.5"/><path d="M2 6l10 7 10-7"/></svg>
-            Padathilstays.reservations@gmail.com
-          </a>
-        </div>
-      </div>
-
-      <!-- logo + address -->
-      <div class="py-12 text-center">
-        <img src="images/logo-padathil-stays-white.svg" alt="Padathil Stays" class="mx-auto w-[150px] h-auto opacity-90" />
-        <p class="mt-6 text-[12px] leading-[2] tracking-[.05em]">
-          Padathil Stays Group<br />
-          Head Office: Thodupuzha, Idukki, Kerala, India
-        </p>
-      </div>
-    </div>
-
-    <!-- copyright -->
-    <div class="border-t border-footerline py-5 text-center text-[11px] tracking-[.05em]">
-      <span>&copy; 2026 padathilstays.com.</span>
-      <span class="mx-2 opacity-40">|</span>
-      <a href="about.html" class="hover:text-[#8fae7c] transition-colors">About</a>
-      <span class="mx-2 opacity-40">|</span>
-      <a href="faq.html" class="hover:text-[#8fae7c] transition-colors">FAQ</a>
-      <span class="mx-2 opacity-40">|</span>
-      <a href="gallery.html" class="hover:text-[#8fae7c] transition-colors">Gallery</a>
-      <span class="mx-2 opacity-40">|</span>
-      <span>Design: <a href="https://mediagroots.com/" target="_blank" rel="noopener" class="hover:text-[#8fae7c] transition-colors">mediagroots</a></span>
-    </div>
-  </footer>
+  <footer id="footer" class="site-footer">
+  <div class="wrap">
+    <img src="images/padathil-stays-logo-transparent.webp" alt="Padathil Stays" width="144" height="144" loading="lazy" class="site-logo site-logo--footer" />
+    <p class="footer-contact">Padathil Stays Group · Thodupuzha, Idukki, Kerala, India<br /><a href="tel:+919447738990">+91 94477 38990</a> · <a href="mailto:Padathilstays.reservations@gmail.com">Padathilstays.reservations@gmail.com</a></p>
+    <nav class="footer-links" aria-label="Footer navigation"><a href="about.html">About</a><a href="experiences.html">Experiences</a><a href="gallery.html">Gallery</a><a href="blog.html">Journal</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></nav>
+    <p class="footer-note">© 2026 Padathil Stays. Family-run hospitality across Kerala.</p>
+  </div>
+</footer>
 
   <!-- back to top -->
   <button id="toTop" class="fixed bottom-[84px] right-6 z-40 h-[38px] w-[38px] rounded-full bg-nandor text-white flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 hover:bg-gold" aria-label="Back to top">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></svg>
   </button>
-
-  <script>
-    // fixed header + back-to-top visibility
-    const header = document.getElementById('siteHeader');
-    const toTop = document.getElementById('toTop');
-    const onScroll = () => {
-      const y = window.scrollY;
-      header.classList.toggle('hidden-top', y < 120);
-      toTop.classList.toggle('opacity-0', y < 400);
-      toTop.classList.toggle('pointer-events-none', y < 400);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  </script>
 
 </body>
 </html>
