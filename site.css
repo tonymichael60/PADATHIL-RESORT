@@ -117,17 +117,6 @@ main > section:first-child:not(#top):not(.media-hero) .body-copy { max-width: va
   margin-left: auto;
   filter: brightness(0) invert(1) drop-shadow(0 5px 12px rgba(0,0,0,.2));
 }
-.home-hero-brand {
-  width: clamp(210px, 24vw, 260px) !important;
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
-.home-hero-logo {
-  width: 100%;
-  filter: brightness(0) invert(1) drop-shadow(0 8px 22px rgba(0,0,0,.46));
-  animation: none;
-}
 
 .page-loader {
   position: fixed;
@@ -193,10 +182,10 @@ main > section:first-child:not(#top):not(.media-hero) .body-copy { max-width: va
 .stay-menu a { border-bottom: 1px solid rgba(24,55,45,.09); }
 .stay-menu a:last-child { border-bottom: 0; }
 .stay-menu--picker {
-  overflow: visible;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
+  overflow: hidden;
+  border: 1px solid var(--line) !important;
+  background: #fff !important;
+  box-shadow: 0 18px 40px rgba(16,40,32,.18) !important;
 }
 .stay-menu-toggle > summary {
   display: inline-flex;
@@ -400,7 +389,7 @@ main > section:first-child:not(#top):not(.media-hero) .body-copy { max-width: va
   background-image: url('images/kerala-lotus-botanical.webp');
 }
 
-.section-kicker, .hero-kicker, .property-index, .property-meta {
+.section-kicker, .property-index, .property-meta {
   display: block;
   color: var(--brass);
   font-family: 'Manrope', sans-serif;
@@ -426,9 +415,7 @@ main > section:first-child:not(#top):not(.media-hero) .body-copy { max-width: va
   background: linear-gradient(180deg, transparent, rgba(16,40,32,.58));
 }
 #top > img { animation: hero-scale 1.4s cubic-bezier(.22,.61,.36,1) both; filter: saturate(.78) contrast(1.04); }
-.home-hero-brand { z-index: 3; animation: hero-brand-reveal 1.4s .2s ease both; }
 .hero-copy { z-index: 3; animation: hero-reveal 1s .38s both; }
-.hero-kicker { margin-bottom: 20px; color: rgba(255,255,255,.88); }
 .hero-copy h1 { max-width: 16ch; margin: 0 auto; color: #fff !important; font-size: clamp(3.35rem, 7.5vw, 8rem) !important; }
 .hero-copy > p:last-child { max-width: 570px; margin-right: auto; margin-left: auto; line-height: 1.7; }
 
@@ -497,7 +484,6 @@ main > section:first-child:not(#top):not(.media-hero) .body-copy { max-width: va
 
 #experience { padding-top: clamp(86px, 10vw, 148px) !important; }
 #experience figure { overflow: hidden; }
-#experience figure:nth-child(2) { transform: translateY(42px); }
 #experience img { filter: saturate(.78); transition: transform .7s ease, filter .4s ease; }
 #experience figure:hover img { filter: saturate(1); transform: scale(1.04); }
 
@@ -544,7 +530,6 @@ footer a:hover { color: #dfb97a !important; }
 
 @keyframes hero-scale { from { opacity: .75; transform: scale(1.08); } to { opacity: 1; transform: scale(1); } }
 @keyframes hero-reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes hero-brand-reveal { from { opacity: 0; } to { opacity: 1; } }
 @keyframes loader-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes loader-dismiss { to { visibility: hidden; opacity: 0; pointer-events: none; } }
 @keyframes menu-reveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
@@ -558,12 +543,15 @@ footer a:hover { color: #dfb97a !important; }
   backdrop-filter: blur(14px);
 }
 .compact-header { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 22px; }
-.site-brand { display: inline-flex; min-width: max-content; align-items: center; gap: 11px; color: var(--forest); }
+.site-brand { display: inline-flex; min-width: max-content; align-items: center; gap: 16px; color: var(--forest); }
 .site-brand span { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
 .desktop-nav { display: flex; align-items: center; gap: clamp(16px, 2vw, 30px); font-size: 10px; font-weight: 700; text-transform: uppercase; }
 .desktop-nav > details { position: relative; }
 .desktop-nav .stay-menu { position: absolute; top: calc(100% + 12px); left: 0; width: 278px; }
-.site-header details[open] > .stay-menu,
+/* Bridges the 12px gap so the pointer stays inside the menu on its way down. */
+.desktop-nav .stay-menu::before { position: absolute; top: -12px; right: 0; left: 0; height: 12px; content: ''; }
+/* No reveal animation on the stays panel: the composited layer it leaves behind
+   renders translucent inside the header's backdrop-filter. */
 .site-header details[open] > nav { animation: menu-reveal .2s ease both; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
 .header-book { min-height: 42px !important; padding-right: 17px !important; padding-left: 17px !important; white-space: nowrap; }
@@ -587,6 +575,9 @@ footer a:hover { color: #dfb97a !important; }
 .media-editorial, .media-editorial img, .gallery-card a, .gallery-card img { aspect-ratio: 4 / 5; }
 .media-feature img, .media-card img, .media-editorial img, .gallery-card img { width: 100%; height: 100%; object-fit: cover; }
 .feature-tile { height: clamp(280px, 34vw, 440px) !important; }
+/* .font-display forces the forest heading color !important sitewide; these tiles
+   sit on a dark photo and need their headline white to stay legible. */
+.feature-tile .font-display { color: #fff !important; }
 
 .scroll-cue {
   width: 16px;
@@ -645,7 +636,6 @@ footer a:hover { color: #dfb97a !important; }
 @media (max-width: 767px) {
   #top { height: clamp(520px, 78svh, 640px) !important; min-height: 0 !important; }
   .site-brand span { display: none; }
-  .home-hero-brand { top: 32px !important; width: clamp(150px, 40vw, 170px) !important; }
   .hero-copy { bottom: 72px !important; }
   .hero-copy h1 { max-width: 12ch; font-size: clamp(2.7rem, 11vw, 3.4rem) !important; }
   .hero-copy > p:last-child { max-width: 34ch; font-size: 10px !important; letter-spacing: .14em !important; }
