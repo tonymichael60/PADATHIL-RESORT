@@ -23,6 +23,21 @@
     if (!event.target.closest('.site-header details')) closeMenus();
   });
 
+  // Open the stays menu on hover for mouse users; click still works everywhere.
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  document.querySelectorAll('.desktop-nav .stay-menu-toggle').forEach((menu) => {
+    let closeTimer = 0;
+    menu.addEventListener('pointerenter', () => {
+      if (!finePointer.matches) return;
+      window.clearTimeout(closeTimer);
+      menu.open = true;
+    });
+    menu.addEventListener('pointerleave', () => {
+      if (!finePointer.matches) return;
+      closeTimer = window.setTimeout(() => { menu.open = false; }, 180);
+    });
+  });
+
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
     const openMenu = menuDetails.find((menu) => menu.open);
