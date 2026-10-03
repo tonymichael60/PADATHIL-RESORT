@@ -2,6 +2,74 @@
   'use strict';
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const imageLoadAnimations = new WeakMap();
+
+  // Keep reserved image space useful while the browser fetches and decodes the
+  // actual photograph. This is intentionally presentation-only: image sources,
+  // lazy-loading and layout dimensions stay untouched.
+  const imageLoader = {
+    watch(image) {
+      if (!image || image.matches('.site-logo, .local-map-ground, .hero-slide, .nc-slide')) return;
+
+      const expectedSource = image.currentSrc || image.src;
+      const wasAlreadyDecoded = image.complete && image.naturalWidth > 0;
+      imageLoadAnimations.get(image)?.cancel();
+      const reveal = () => {
+        if ((image.currentSrc || image.src) !== expectedSource) return;
+        image.classList.remove('is-image-loading');
+        image.classList.add('is-image-ready');
+        image.removeAttribute('aria-busy');
+
+        // Let a photograph come gently into focus only if it actually loaded
+        // while visible. Cached and offscreen images never slow down scrolling.
+        const bounds = image.getBoundingClientRect();
+        if (wasAlreadyDecoded || reducedMotion.matches || !image.animate ||
+            bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
+        const finalStyle = getComputedStyle(image);
+        const animation = image.animate([
+          { opacity: .38, filter: 'blur(8px) saturate(.7)' },
+          { opacity: finalStyle.opacity, filter: finalStyle.filter }
+        ], { duration: 720, easing: 'cubic-bezier(.16, 1, .3, 1)' });
+        imageLoadAnimations.set(image, animation);
+        animation.finished.finally(() => {
+          if (imageLoadAnimations.get(image) === animation) imageLoadAnimations.delete(image);
+        }).catch(() => {});
+      };
+      const fail = () => {
+        if ((image.currentSrc || image.src) !== expectedSource) return;
+        image.classList.remove('is-image-loading');
+        image.classList.add('is-image-error');
+        image.removeAttribute('aria-busy');
+      };
+      const decodeAndReveal = () => {
+        if (typeof image.decode !== 'function') { reveal(); return; }
+        image.decode().then(reveal).catch(() => {
+          // Cached and SVG assets can reject decode after they have rendered.
+          if (image.complete && image.naturalWidth) reveal(); else fail();
+        });
+      };
+
+      image.classList.remove('is-image-ready', 'is-image-error');
+      image.classList.add('is-image-loading');
+      image.setAttribute('aria-busy', 'true');
+      image.addEventListener('load', decodeAndReveal, { once: true });
+      image.addEventListener('error', fail, { once: true });
+
+      if (image.complete) {
+        if (image.naturalWidth) decodeAndReveal(); else if (image.getAttribute('loading') !== 'lazy') fail();
+      }
+    }
+  };
+  window.PadathilImageLoader = imageLoader;
+  document.querySelectorAll('img[src]').forEach((image) => imageLoader.watch(image));
+
+  // Nearby places share the familiar geographic pin language. The resort's
+  // own marker keeps its letter so guests can distinguish their base at once.
+  const locationPin = '<svg viewBox="0 0 30 40" focusable="false"><path d="M15 1.5C8 1.5 2.5 7.1 2.5 14.1c0 9.4 12.5 24.4 12.5 24.4s12.5-15 12.5-24.4C27.5 7.1 22 1.5 15 1.5Z"/><circle cx="15" cy="14" r="4.3"/></svg>';
+  document.querySelectorAll('.local-pin:not(.local-pin--home) .local-marker:empty').forEach((marker) => {
+    marker.setAttribute('aria-hidden', 'true');
+    marker.innerHTML = locationPin;
+  });
   const menuDetails = [...document.querySelectorAll('.site-header details')];
 
   const closeMenus = (exception = null) => {
@@ -58,8 +126,121 @@
     const href = link.getAttribute('href')?.split('#')[0] || '';
     if (href === currentPage) link.setAttribute('aria-current', 'page');
   });
+  document.querySelectorAll('.stay-option').forEach((link) => {
+    const href = link.getAttribute('href')?.split('#')[0] || '';
+    if (href === currentPage) link.setAttribute('aria-current', 'page');
+  });
   if (['nature-castle-vattavada.html', 'niva-waterways.html', 'riparian-ayur-resorts.html'].includes(currentPage)) {
     document.querySelector('.stay-menu-toggle > summary')?.setAttribute('aria-current', 'page');
+  }
+
+  // On a property page, make the next stay available in the header itself.
+  // This keeps the three destinations feeling like a considered sequence rather
+  // than making guests reopen the picker to continue exploring.
+  const staySequence = [
+    { path: 'nature-castle-vattavada.html', name: 'Nature Castle' },
+    { path: 'niva-waterways.html', name: 'Niva Waterways' },
+    { path: 'riparian-ayur-resorts.html', name: 'Riparian Resort' }
+  ];
+  const stayIndex = staySequence.findIndex((stay) => stay.path === currentPage);
+  const stayRouteColors = {
+    'nature-castle-vattavada.html': '#91b572',
+    'niva-waterways.html': '#79c6df',
+    'riparian-ayur-resorts.html': '#c9835e'
+  };
+  const stayHeroResources = {
+    'nature-castle-vattavada.html': {
+      src: 'images/banner/nc-slide-1.webp',
+      srcset: 'images/banner/nc-slide-1-480w.webp 480w, images/banner/nc-slide-1-960w.webp 960w, images/banner/nc-slide-1.webp 1600w'
+    },
+    'niva-waterways.html': {
+      src: 'images/banner/niva-slide-1.webp',
+      srcset: 'images/banner/niva-slide-1-480w.webp 480w, images/banner/niva-slide-1-960w.webp 960w, images/banner/niva-slide-1.webp 1600w'
+    },
+    'riparian-ayur-resorts.html': {
+      src: 'images/banner/rp-slide-1.webp',
+      srcset: 'images/banner/rp-slide-1-480w.webp 480w, images/banner/rp-slide-1-960w.webp 960w, images/banner/rp-slide-1.webp 1600w'
+    }
+  };
+  const warmedStays = new Set();
+  const warmStay = (targetPath, isIntentional = false) => {
+    const hero = stayHeroResources[targetPath];
+    if (!hero || warmedStays.has(targetPath)) return;
+    if (!isIntentional && navigator.connection?.saveData) return;
+    warmedStays.add(targetPath);
+
+    const documentPrefetch = document.createElement('link');
+    documentPrefetch.rel = 'prefetch';
+    documentPrefetch.href = targetPath;
+    documentPrefetch.as = 'document';
+    document.head.append(documentPrefetch);
+
+    const heroPreload = document.createElement('link');
+    heroPreload.rel = 'preload';
+    heroPreload.as = 'image';
+    heroPreload.href = hero.src;
+    heroPreload.imageSrcset = hero.srcset;
+    heroPreload.imageSizes = '100vw';
+    heroPreload.fetchPriority = 'high';
+    document.head.append(heroPreload);
+  };
+  let stayNavigationInProgress = false;
+  let stayNavigationTimer;
+  const transitionToStay = (event, targetPath) => {
+    if (reducedMotion.matches || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    event.preventDefault();
+    if (stayNavigationInProgress) return;
+    stayNavigationInProgress = true;
+    warmStay(targetPath, true);
+    const route = document.querySelector('.riparian-hero-river path');
+    const hero = document.querySelector('.riparian-hero');
+    const heroBounds = hero?.getBoundingClientRect();
+    const heroVisible = heroBounds && heroBounds.top < window.innerHeight * .3 && heroBounds.bottom > window.innerHeight * .7;
+    if (!route || !heroVisible || !stayRouteColors[targetPath]) {
+      window.location.href = targetPath;
+      return;
+    }
+
+    // Keep the current photograph in place while the destination color traces
+    // the same route, then let the destination page load normally.
+    const routeLength = Math.ceil(route.getTotalLength());
+    route.style.animation = 'none';
+    route.style.strokeDashoffset = '0';
+    const destinationRoute = route.cloneNode(false);
+    destinationRoute.classList.add('stay-route-destination');
+    destinationRoute.style.stroke = stayRouteColors[targetPath];
+    destinationRoute.style.strokeDasharray = `${routeLength} ${routeLength}`;
+    destinationRoute.style.strokeDashoffset = `${routeLength}`;
+    route.after(destinationRoute);
+    destinationRoute.animate(
+      [{ strokeDashoffset: routeLength }, { strokeDashoffset: 0 }],
+      { duration: 720, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' }
+    );
+    stayNavigationTimer = window.setTimeout(() => { window.location.href = targetPath; }, 740);
+  };
+  window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return;
+    window.clearTimeout(stayNavigationTimer);
+    document.querySelector('.stay-route-destination')?.remove();
+    stayNavigationInProgress = false;
+  });
+  if (stayIndex !== -1) {
+    document.querySelectorAll('.stay-option, .mobile-stay-link').forEach((link) => {
+      const targetPath = link.getAttribute('href')?.split('#')[0];
+      if (!targetPath || targetPath === currentPage) return;
+      link.addEventListener('pointerenter', () => warmStay(targetPath), { passive: true });
+      link.addEventListener('focus', () => warmStay(targetPath));
+      link.addEventListener('pointerdown', () => warmStay(targetPath, true), { passive: true });
+      link.addEventListener('click', (event) => transitionToStay(event, targetPath));
+    });
+    const nextStay = staySequence[(stayIndex + 1) % staySequence.length];
+    const nextLink = document.querySelector('[data-next-stay]');
+    if (nextLink) {
+      nextLink.addEventListener('pointerenter', () => warmStay(nextStay.path), { passive: true });
+      nextLink.addEventListener('focus', () => warmStay(nextStay.path));
+      nextLink.addEventListener('pointerdown', () => warmStay(nextStay.path, true), { passive: true });
+      nextLink.addEventListener('click', (event) => transitionToStay(event, nextStay.path));
+    }
   }
 
   const nearbyExplorer = document.querySelector('[data-nearby-explorer]');
@@ -125,8 +306,14 @@
       image.classList.add('is-changing');
       window.clearTimeout(imageTimer);
       imageTimer = window.setTimeout(() => {
+        // This image changes with the selected place. Its initial responsive
+        // source set belongs to the first photo, so discard it before loading
+        // a different destination image.
+        image.removeAttribute('srcset');
+        image.removeAttribute('sizes');
         image.src = place.image;
         image.alt = place.alt;
+        imageLoader.watch(image);
         image.classList.remove('is-changing');
       }, reducedMotion.matches ? 0 : 140);
       fields.number.textContent = place.number;
@@ -204,13 +391,24 @@
   const closeButton = lightbox.querySelector('.lightbox-close');
   let activeIndex = 0;
   let previousFocus = null;
+  let imageRequest = 0;
 
   const renderImage = () => {
     const link = galleryLinks[activeIndex];
     const thumbnail = link.querySelector('img');
+    const request = ++imageRequest;
+    image.classList.remove('is-ready');
     image.src = link.href;
     image.alt = thumbnail?.alt || '';
     caption.textContent = link.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || image.alt;
+    const reveal = () => {
+      if (request !== imageRequest) return;
+      // Let a cached image restart its entrance when the visitor changes photos.
+      void image.offsetWidth;
+      image.classList.add('is-ready');
+    };
+    if (image.complete && image.naturalWidth) reveal();
+    else image.addEventListener('load', reveal, { once: true });
   };
 
   const openLightbox = (index) => {
@@ -224,6 +422,8 @@
 
   const closeLightbox = () => {
     lightbox.hidden = true;
+    imageRequest++;
+    image.classList.remove('is-ready');
     image.removeAttribute('src');
     document.body.classList.remove('lightbox-open');
     previousFocus?.focus();
@@ -268,11 +468,12 @@
 (() => {
   const cards = document.querySelectorAll('.gallery-card');
   if (!cards.length || !document.documentElement.classList.contains('reveal-ready')) return;
-  // Replays the reveal every time a card scrolls back into view.
+  // Reveal each gallery card only on its first visit.
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.intersectionRatio >= 0.15) entry.target.classList.add('is-in');
-      else if (!entry.isIntersecting) entry.target.classList.remove('is-in');
+      if (entry.intersectionRatio < 0.15) return;
+      entry.target.classList.add('is-in');
+      io.unobserve(entry.target);
     });
   }, { threshold: [0, 0.15] });
   // Start after the page has painted so the first row's reveal is actually seen.
@@ -280,88 +481,30 @@
   if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
 })();
 
-// Home and Nature Castle pages: elements pop up as they scroll into view, and again on every pass.
+// Unveil photographs once as they enter view; text and controls remain steady.
 (() => {
-  const isHome = !!document.getElementById('welcome');
-  const isNature = !!document.querySelector('.nc-page');
-  const isRip = !!document.querySelector('.riparian-page');
-  const isBlog = !!document.querySelector('.blog-grid');
-  const isAbout = !!document.querySelector('.about-hero');
-  const isFaq = !!document.querySelector('.faq-list');
-  const isContact = !!document.querySelector('.contact-hero');
-  const isArticle = document.body.classList.contains('blog-article');
-  if (!(isHome || isNature || isRip || isBlog || isAbout || isContact || isArticle || isFaq) || !('IntersectionObserver' in window)) return;
+  if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const homeTargets = [
-    '#welcome .wrap > *',
-    '#properties .wrap > div:first-child > *',
-    '#properties .stay-choice',
-    '#properties .property-compass > *',
-    '#why-padathil figure',
-    '#why-padathil .bg-panel',
-    '#experience h2',
-    '#experience .journal-tile',
-    '#experience .wrap > p',
-    '#our-story .wrap > *'
-  ];
-  const natureTargets = [
-    '.nc-intro .wrap > *',
-    '.nc-sig-head > *',
-    '.nc-spec-row',
-    '.nc-facts > div',
-    '.nc-split > div',
-    '.nc-glance h2',
-    '.nc-glance .property-facts > div',
-    '.nc-explore .wrap > :not(.nc-valley)',
-    '.nc-plan .wrap > *'
-  ];
-  const ripTargets = [
-    '.riparian-arrival .wrap > *',
-    '.rp-sec .nc-sig-head > *',
-    '.rp-facts > div',
-    '.rp-perks li',
-    '.riparian-story .nc-split > div > *',
-    '.riparian-facts-section h2',
-    '.riparian-facts-section .property-facts > div',
-    '.riparian-explorer .wrap > *',
-    '.riparian-close .wrap > *'
-  ];
-  const blogTargets = [
-    'main > section:first-child .wrap > *',
-    '.blog-card'
-  ];
-  const aboutTargets = [
-    '.about-hero .wrap > *',
-    '.about-split-text > *',
-    'main section:nth-of-type(3) .wrap > div',
-    '.about-cta .wrap > *'
-  ];
-  const contactTargets = [
-    'main section h1', 'main section h2', 'main section p:not(article p)',
-    'main section article', 'main section form', 'main section dl > div'
-  ];
-  const faqTargets = ['main section:first-child .wrap > *', '.faq-list details'];
-  const articleTargets = ['main h1', 'main h2', 'main p', 'main li'];
-  const wipeTargets = ['.nc-photo', '.nc-valley', '.about-photo'];
-  const seen = new Map();
+  const photos = document.querySelectorAll(
+    '#properties .property-card figure, #why-padathil figure, #experience .journal-tile figure, ' +
+    '.nc-page .nc-photo, .nc-page .nc-valley, .riparian-page .nc-photo, ' +
+    '.about-photo, .blog-card figure'
+  );
+  if (!photos.length) return;
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.intersectionRatio >= 0.1) entry.target.classList.add('pop-in');
-      else if (!entry.isIntersecting) entry.target.classList.remove('pop-in');
+      if (entry.intersectionRatio < 0.08) return;
+      entry.target.classList.add('is-in');
+      io.unobserve(entry.target);
     });
-  }, { threshold: [0, 0.1] });
-  const watch = (selectors, cls) => document.querySelectorAll(selectors.join(',')).forEach((el) => {
-    const i = seen.get(el.parentNode) || 0;
-    seen.set(el.parentNode, i + 1);
-    el.style.setProperty('--pop-d', `${Math.min(i, 3) * 0.12}s`);
-    el.classList.add(cls);
-    io.observe(el);
+  }, { threshold: [0, 0.08] });
+  photos.forEach((photo) => {
+    photo.classList.add('media-reveal');
+    io.observe(photo);
   });
-  watch(isHome ? homeTargets : isRip ? ripTargets : isBlog ? blogTargets : isAbout ? aboutTargets : isContact ? contactTargets : isFaq ? faqTargets : isArticle ? articleTargets : natureTargets, 'pop');
-  if (isNature || isRip || isAbout) watch(wipeTargets, 'wipe');
 })();
 
-// Home and Nature Castle pages: momentum (inertia) scrolling. Skipped for reduced motion or if the CDN script is blocked.
+// Momentum scrolling is used on the home and selected interior pages.
 (() => {
   if (!(document.getElementById('welcome') || document.querySelector('.nc-page') || document.querySelector('.blog-grid') || document.querySelector('.about-hero') || document.querySelector('.contact-hero') || document.querySelector('.faq-list')) || !window.Lenis) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -392,5 +535,154 @@
       items.forEach((other) => { if (other !== item) close(other); });
       item.open = true;
     });
+  });
+})();
+
+// Primary enquiry actions collect just enough context before opening WhatsApp.
+// The floating WhatsApp control remains an immediate, no-form route for guests
+// who already know what they want to ask.
+(() => {
+  const directChatUrl = 'https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire.';
+  document.querySelectorAll('a[aria-label="Chat on WhatsApp"]').forEach((link) => {
+    link.setAttribute('href', directChatUrl);
+  });
+  const enquiryLinks = [...document.querySelectorAll('a[href*="wa.me/"]')]
+    .filter((link) => link.getAttribute('aria-label') !== 'Chat on WhatsApp');
+  if (!enquiryLinks.length) return;
+
+  const pageProperty = {
+    'nature-castle-vattavada.html': 'Nature Castle Resort',
+    'niva-waterways.html': 'Niva Waterways',
+    'riparian-ayur-resorts.html': 'Riparian Resort'
+  }[location.pathname.split('/').pop() || ''];
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'quick-enquiry-dialog';
+  dialog.setAttribute('aria-labelledby', 'quick-enquiry-title');
+  dialog.innerHTML = `
+    <div class="quick-enquiry-shell">
+      <button class="quick-enquiry-close" type="button" aria-label="Close quick enquiry">&times;</button>
+      <div class="quick-enquiry-lead">
+        <h2 id="quick-enquiry-title">Plan your stay.</h2>
+        <p>A few details help the Padathil team respond with the right information.</p>
+      </div>
+      <form class="quick-enquiry-form" novalidate>
+        <div class="quick-enquiry-selects">
+          <label>Stay preference
+            <select name="property">
+              <option value="Not sure yet">Help me choose a stay</option>
+              <option value="Nature Castle Resort">Nature Castle Resort</option>
+              <option value="Niva Waterways">Niva Waterways</option>
+              <option value="Riparian Resort">Riparian Resort</option>
+            </select>
+          </label>
+          <label>How can we help?
+            <select name="intent">
+              <option value="A stay">A stay</option>
+              <option value="A group stay">A group stay</option>
+              <option value="A celebration or special request">A celebration or special request</option>
+              <option value="Help choosing a stay">Help me choose</option>
+            </select>
+          </label>
+        </div>
+        <div class="quick-enquiry-fields">
+          <label>Check-in <span>optional</span><input type="date" name="checkIn"></label>
+          <label>Check-out <span>optional</span><input type="date" name="checkOut"></label>
+          <label>Guests <span>optional</span><input type="number" name="guests" min="1" inputmode="numeric" placeholder="How many?"></label>
+        </div>
+        <label class="quick-enquiry-note">A note for the team <span>optional</span><textarea name="note" rows="2" placeholder="Questions, occasion, or anything else."></textarea></label>
+        <p class="quick-enquiry-error" role="alert" hidden></p>
+        <div class="quick-enquiry-actions">
+          <button type="submit" class="quick-enquiry-submit">Continue to WhatsApp <span aria-hidden="true">→</span></button>
+          <a class="quick-enquiry-skip" data-quick-enquiry-bypass href="https://wa.me/919447738990?text=Hello%20Padathil%20Stays%2C%20I%20would%20like%20to%20enquire." target="_blank" rel="noopener">Chat without details</a>
+        </div>
+      </form>
+    </div>`;
+  document.body.append(dialog);
+
+  const form = dialog.querySelector('.quick-enquiry-form');
+  const closeButton = dialog.querySelector('.quick-enquiry-close');
+  const error = dialog.querySelector('.quick-enquiry-error');
+  let trigger = null;
+
+  const getMessageText = (link) => {
+    try { return new URL(link.href).searchParams.get('text') || ''; }
+    catch { return ''; }
+  };
+  const getPropertyFor = (link) => {
+    const message = getMessageText(link);
+    if (/Nature Castle/i.test(message)) return 'Nature Castle Resort';
+    if (/Niva Waterways/i.test(message)) return 'Niva Waterways';
+    if (/Riparian/i.test(message)) return 'Riparian Resort';
+    return pageProperty || 'Not sure yet';
+  };
+  const setSelected = (name, value) => {
+    const control = form.elements.namedItem(name);
+    if (control) control.value = value;
+  };
+  const openEnquiry = (link) => {
+    trigger = link;
+    form.reset();
+    error.hidden = true;
+    setSelected('property', getPropertyFor(link));
+    if (/recommend|help.*choose/i.test(`${link.textContent} ${getMessageText(link)}`)) {
+      setSelected('intent', 'Help choosing a stay');
+    }
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else {
+      dialog.setAttribute('open', '');
+      closeButton.focus();
+    }
+  };
+  const closeEnquiry = () => {
+    if (dialog.open && typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+  };
+  const readableDate = (value) => {
+    if (!value) return '';
+    return new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+      .format(new Date(`${value}T00:00:00`));
+  };
+
+  enquiryLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      openEnquiry(link);
+    });
+  });
+  closeButton.addEventListener('click', closeEnquiry);
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) closeEnquiry();
+  });
+  dialog.addEventListener('close', () => {
+    error.hidden = true;
+    trigger?.focus();
+  });
+  form.addEventListener('input', () => { error.hidden = true; });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const checkIn = data.get('checkIn');
+    const checkOut = data.get('checkOut');
+    if (checkIn && checkOut && checkOut <= checkIn) {
+      error.textContent = 'Choose a check-out date after your check-in date.';
+      error.hidden = false;
+      form.elements.checkOut.focus();
+      return;
+    }
+    const lines = [
+      'Hello Padathil Stays,',
+      '',
+      'I would like to enquire.',
+      `Stay: ${data.get('property')}`,
+      `Looking for: ${data.get('intent')}`
+    ];
+    if (checkIn) lines.push(`Check-in: ${readableDate(checkIn)}`);
+    if (checkOut) lines.push(`Check-out: ${readableDate(checkOut)}`);
+    if (data.get('guests')) lines.push(`Guests: ${data.get('guests')}`);
+    if (data.get('note')?.trim()) lines.push(`Questions: ${data.get('note').trim()}`);
+    const whatsappUrl = `https://wa.me/919447738990?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    closeEnquiry();
   });
 })();
