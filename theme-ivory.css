@@ -292,3 +292,13 @@ footer a:hover { color: var(--gold-light) !important; }
   .gallery-grid > .gallery-card img { aspect-ratio: 4 / 5.1; }
   .gallery-card figcaption { padding-top: 10px !important; font-size: 9px !important; letter-spacing: .1em; }
 }
+
+/* Next stay: compact outlined button with a gold arrow disc, replacing the underlined text link. */
+.site-header .stay-next { display: inline-flex; align-items: center; gap: 12px; height: 42px; padding: 0 8px 0 16px; border: 1px solid rgba(168, 133, 79, .55); border-bottom-width: 1px; background: transparent; color: var(--char); transition: background .3s ease, border-color .3s ease, color .3s ease; }
+.site-header .stay-next span { display: none; }
+.site-header .stay-next strong { font: 600 10px/1 'Manrope', sans-serif; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; }
+.site-header .stay-next strong::before { content: 'Next \2014\00a0'; color: var(--gold); }
+.site-header .stay-next svg { box-sizing: content-box; width: 12px; height: 12px; padding: 7px; border-radius: 50%; background: var(--gold); stroke: #fff; stroke-width: 1.6; transition: transform .3s ease, background .3s ease; }
+.site-header .stay-next:hover { background: var(--char); border-color: var(--char); color: var(--ivory); }
+.site-header .stay-next:hover svg { transform: translateX(3px); background: var(--gold-light); }
+@media (max-width: 1100px) { .site-header .stay-next { display: none; } }
