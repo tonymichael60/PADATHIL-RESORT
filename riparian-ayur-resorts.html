@@ -2,6 +2,8 @@
 <html lang="en-IN">
 <head>
 <meta charset="UTF-8" />
+<meta name="color-scheme" content="only light" />
+<meta name="darkreader-lock" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Riparian Resort | Private Pool Villa in Kothamangalam</title>
 <meta name="description" content="Discover Riparian Resort in Kothamangalam, near Bhoothathankettu and Thattekad, a peaceful Kerala getaway surrounded by nature and scenic attractions." />
@@ -22,11 +24,16 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="site.css" />
 <link rel="stylesheet" href="riparian.css" />
+<link rel="preload" href="fonts/Rosemartin-Regular.otf" as="font" type="font/otf" crossorigin />
 <link rel="stylesheet" href="theme-ivory.css" />
+<link rel="stylesheet" href="atlas-premium.css" />
+<link rel="stylesheet" href="glance-premium.css" />
+<link rel="stylesheet" href="riparian-theme.css" />
+<link rel="stylesheet" href="resort-typography.css" />
 
 <script src="site.js" defer></script>
 <script src="riparian.js" defer></script>
@@ -176,7 +183,7 @@
     </div>
   </section>
 
-  <section class="bg-creamalt py-[50px] riparian-facts-section" aria-labelledby="riparian-at-a-glance">
+  <section class="bg-creamalt py-[50px] riparian-facts-section glance-premium" aria-labelledby="riparian-at-a-glance">
     <div class="wrap max-w-[900px]">
       <h2 id="riparian-at-a-glance" class="text-[26px] md:text-[32px] tracking-[.04em] text-center pb-8">At a Glance</h2>
       <dl class="grid gap-6 sm:grid-cols-2 property-facts">
@@ -189,10 +196,12 @@
   </section>
 
   <!-- ================= EXPLORE NEARBY ================= -->
-  <section class="explorer-section bg-creamalt py-[60px] riparian-explorer" aria-labelledby="nearby-title">
+  <section class="explorer-section bg-creamalt py-[60px] riparian-explorer atlas-premium" aria-labelledby="nearby-title">
     <div class="wrap max-w-[1100px]">
-      <h2 id="nearby-title" class="text-center pb-2">Discover the Beauty Around Bhoothathankettu</h2>
-      <p class="body-copy text-center explorer-intro">Find Riparian in the landscape, then choose a nearby place for an unhurried day out.</p>
+      <div class="atlas-section-heading">
+        <h2 id="nearby-title" class="pb-2">Discover the Beauty Around Bhoothathankettu</h2>
+        <p class="body-copy explorer-intro">Find Riparian in the landscape, then choose a nearby place for an unhurried day out.</p>
+      </div>
 
       <div class="nearby-explorer" data-nearby-explorer>
         <div class="explorer-map resort-atlas" aria-label="Resort location and nearby places">
@@ -205,7 +214,7 @@
             <svg class="local-connections" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line data-map-connection x1="46.13" y1="54.84" x2="47.29" y2="42.43" /></svg>
             <span class="local-river-label" aria-hidden="true">Periyar</span>
             <button class="local-compass" type="button" data-compass aria-label="North is up. Reveal a field note"><svg viewBox="0 0 32 42" aria-hidden="true"><path d="M16 8L8 30l8-5 8 5Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16 8v17" stroke="currentColor"/></svg><span>N</span></button>
-            <button class="local-pin local-pin--home" style="--pin-x:46.13%;--pin-y:54.84%" type="button" data-map-home aria-label="Riparian Resort, your starting point"><span class="local-marker">R</span><span class="local-pin-label">Riparian<span>Your starting point</span></span></button>
+            <button class="local-pin local-pin--home" style="--pin-x:46.13%;--pin-y:54.84%" type="button" data-map-home aria-label="Riparian Resort, your starting point"><span class="local-marker"><img src="images/resort-map-marker.svg" alt="" width="48" height="48" /></span><span class="local-pin-label">Riparian<span>Your starting point</span></span></button>
             <button class="local-pin is-active" style="--pin-x:47.29%;--pin-y:42.43%" type="button" data-place="bhoothathankettu" data-map-x="47.29" data-map-y="42.43" aria-controls="explorer-detail" aria-pressed="true"><span class="local-marker" aria-hidden="true"><svg viewBox="0 0 30 40"><path d="M15 1.5C8 1.5 2.5 7.1 2.5 14.1c0 9.4 12.5 24.4 12.5 24.4s12.5-15 12.5-24.4C27.5 7.1 22 1.5 15 1.5Z"/><circle cx="15" cy="14" r="4.3"/></svg></span><span class="local-pin-label">Bhoothathankettu</span></button>
             <button class="local-pin local-pin--east" style="--pin-x:81.64%;--pin-y:64.78%" type="button" data-place="thattekad" data-map-x="81.64" data-map-y="64.78" aria-controls="explorer-detail" aria-pressed="false"><span class="local-marker"></span><span class="local-pin-label">Thattekad</span></button>
             <button class="local-pin local-pin--east" style="--pin-x:78.97%;--pin-y:77.62%" type="button" data-place="inchathotty" data-map-x="78.97" data-map-y="77.62" aria-controls="explorer-detail" aria-pressed="false"><span class="local-marker"></span><span class="local-pin-label">Inchathotty</span></button>
@@ -214,7 +223,10 @@
           </div>
           <div class="atlas-caption"><p id="map-status" aria-live="polite">A little time by the water.</p><a href="https://maps.app.goo.gl/kNpSrqVVG5eNfK737" target="_blank" rel="noopener">Resort directions ↗</a></div>
           <p class="atlas-help" id="atlas-disclaimer">A local field guide. Select a marker to explore. Connections show proximity, not roads; driving distances vary. Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.</p>
-          <div class="atlas-places" role="group" aria-label="Explore nearby places">
+        </div>
+
+        <div class="atlas-places" role="group" aria-label="Explore nearby places">
+          <div class="atlas-places-heading"><h3>Nearby places</h3><p>Choose a place to explore</p></div>
           <button class="explorer-pin explorer-pin--bhoothathankettu is-active" type="button" data-place="bhoothathankettu" aria-controls="explorer-detail" aria-pressed="true">
             <span class="explorer-pin-dot" aria-hidden="true"></span><span>Bhoothathankettu</span>
           </button>
@@ -227,7 +239,6 @@
           <button class="explorer-pin explorer-pin--paniyeli" type="button" data-place="paniyeli" aria-controls="explorer-detail" aria-pressed="false">
             <span class="explorer-pin-dot" aria-hidden="true"></span><span>Paniyeli Poru</span>
           </button>
-          </div>
         </div>
 
         <article id="explorer-detail" class="explorer-detail" aria-live="polite">

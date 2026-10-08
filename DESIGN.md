@@ -11,19 +11,45 @@ colors:
   route-brass: "#c9a466"
   light-paper: "#fff8eb"
   copy-ink: "#34483e"
+  gallery-white: "#ffffff"
+  gallery-charcoal: "#222222"
+  gallery-copy: "#636363"
+  gallery-rule: "#e6e6e3"
 typography:
-  display:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
-    fontSize: "clamp(2.7rem, 5vw, 5.2rem)"
-    fontWeight: 500
-    lineHeight: 1
+  gallery-title:
+    fontFamily: "Manrope, sans-serif"
+    fontSize: "clamp(58px, 7.2vw, 96px)"
+    fontWeight: 400
+    lineHeight: 0.98
     letterSpacing: "-0.035em"
+  gallery-title-mobile:
+    fontFamily: "Manrope, sans-serif"
+    fontSize: "clamp(54px, 15vw, 68px)"
+    fontWeight: 400
+    lineHeight: 0.98
+    letterSpacing: "-0.035em"
+  gallery-caption:
+    fontFamily: "Manrope, sans-serif"
+    fontSize: "13px"
+    fontWeight: 600
+    lineHeight: 1.6
+  gallery-secondary:
+    fontFamily: "Manrope, sans-serif"
+    fontSize: "12px"
+    fontWeight: 400
+    lineHeight: 1.7
+  display:
+    fontFamily: "Rosemartin, Georgia, serif"
+    fontSize: "clamp(2.7rem, 5vw, 5.2rem)"
+    fontWeight: 400
+    lineHeight: 1.08
+    letterSpacing: "-0.02em"
   hero-display:
-    fontFamily: "Cormorant Garamond, Georgia, serif"
-    fontSize: "clamp(4.25rem, 9vw, 8.7rem)"
-    fontWeight: 500
-    lineHeight: 0.77
-    letterSpacing: "-0.055em"
+    fontFamily: "Rosemartin, Georgia, serif"
+    fontSize: "clamp(2.5rem, 6.5vw, 5rem)"
+    fontWeight: 400
+    lineHeight: 1.08
+    letterSpacing: "-0.02em"
   body:
     fontFamily: "Manrope, sans-serif"
     fontSize: "clamp(1rem, 1.3vw, 1.12rem)"
@@ -42,6 +68,10 @@ spacing:
   section: "clamp(5rem, 9vw, 8.5rem)"
   action: "1rem 1.25rem"
 components:
+  gallery-surface:
+    backgroundColor: "{colors.gallery-white}"
+    textColor: "{colors.gallery-charcoal}"
+    rounded: "{rounded.none}"
   enquiry-action:
     backgroundColor: "{colors.route-brass}"
     textColor: "{colors.botanical-ink-deep}"
@@ -101,19 +131,19 @@ The palette is a restrained record of forest shade, river-worn paper and weather
 
 ## Typography
 
-**Display Font:** Cormorant Garamond (with Georgia fallback)
+**Display Font:** Rosemartin Regular (self-hosted, with Georgia fallback)
 **Body Font:** Manrope (with sans-serif fallback)
 
-**Character:** Cormorant supplies the slow, literary voice; Manrope keeps place facts, navigation and enquiry actions crisp. The contrast is deliberate: expressive destination names above an exact, readable field-note layer.
+**Character:** Rosemartin supplies the slow, literary voice; Manrope keeps place facts, navigation and enquiry actions crisp. The contrast is deliberate: expressive destination names above an exact, readable field-note layer.
 
 ### Hierarchy
 
-- **Hero Display:** expansive, close-set Cormorant for the property name only; its italic second line is a quiet change of terrain.
-- **Display:** Cormorant for section titles and the arrival lede, with generous blank space around it.
+- **Hero Display:** Rosemartin Regular for the property name, with a generously spaced second line in the destination accent color.
+- **Display:** Rosemartin for section titles and the arrival lede, with generous blank space around it.
 - **Body:** Manrope for factual copy at a relaxed, highly legible leading; keep continuous copy near the established reading measure.
 - **Label:** uppercase Manrope with deliberate tracking for locations, fact labels, action text and map annotations.
 
-**The Two-Voice Rule.** Use Cormorant for a considered invitation or place name; use Manrope for every instruction, fact, control and action.
+**The Two-Voice Rule.** Use Rosemartin for a considered invitation or place name; use Manrope for every instruction, fact, control and action.
 
 ## Layout
 
@@ -137,6 +167,15 @@ Depth comes first from tonal contrast, photography and layering, not floating UI
 The form language is square and editorial: no softened card corners, pill controls or ornamental containers. Fine ink rules divide information; route paths, contour lines and the compact map pins introduce the only organic geometry. Image crops are purposeful and never treated as generic thumbnails.
 
 ## Components
+
+### Gallery (gallery.html only)
+
+**Character:** a minimal, aesthetically premium photographic collection. These route-specific rules take precedence over the Riparian palette and shared Rosemartin heading guidance on the gallery; they do not redefine other routes.
+
+- **Palette and type:** white ground, charcoal title and selection, muted copy and pale hairline divisions use the `gallery-*` tokens. Manrope is used at all levels, including the page title and local navigation wordmark. The title is weight 400, `clamp(58px, 7.2vw, 96px)`, line-height .98 and tracking -.035em; at 600px and below it is `clamp(54px, 15vw, 68px)`. Chapter headings are weight 500 and grow to 38px. Primary captions are 13px, weight 600; secondary captions are 12px, weight 400.
+- **Composition:** a maximum 1320px container has 48px side gutters, reduced to 24px at 900px and 18px at 600px. The property chapters use a 12-column photo grid with 22px column gaps and 46px row gaps. Asymmetric pairs give landscape and portrait images distinct widths and aspect ratios; the first Nature Castle pair spans eight and four columns. At 900px the gaps become 16px and 34px. At 600px and below, one column shows images at their natural aspect ratios with 29px row gaps. Photographs remain free of card shells, shadows, grain and decorative overlays. Desktop thumbnails use cover cropping; the viewer contains the uncropped photograph.
+- **Collections:** All stays opens with three factual property chapters: Nature Castle Resort (six photographs), Niva Waterways (two) and Riparian Ayur Resorts (two). Six representative or promotional photographs remain separately available under More moments with honest captions. Desktop text filters mark selection with a charcoal underline; at 600px and below, a labeled native select replaces them. Keep both controls synchronized and announce the result count.
+- **Viewer and enquiry:** keep previous/next navigation within the selected collection, with wraparound, arrow keys, Escape, swipe, contained focus, inert background and focus return. Show loading feedback and an image-error retry. Retain descriptive alternatives, direct photo links without JavaScript and the WhatsApp request for current room photographs. Honor reduced motion.
 
 ### Buttons
 
@@ -187,7 +226,7 @@ The form language is square and editorial: no softened card corners, pill contro
 - **Do** use actual Riparian resort and nearby-place photography for the hero and explorer.
 - **Do** keep WhatsApp enquiry links direct and preserve the map explorer's factual place controls.
 - **Do** use the brass route line as the signature journey cue, once per hero.
-- **Do** give Cormorant display copy generous empty space and keep Manrope facts calm and readable.
+- **Do** give Rosemartin display copy generous empty space and keep Manrope facts calm and readable.
 
 ### Don't:
 
@@ -195,3 +234,7 @@ The form language is square and editorial: no softened card corners, pill contro
 - **Don't** turn the forest-edge world into generic luxury gradients, glossy tiles or rounded dashboard cards.
 - **Don't** add continuous, attention-seeking motion or hide content behind animation.
 - **Don't** substitute the illustrated explorer for an external map or remove its not-to-scale qualification.
+
+## Shared typography update — October 2026
+
+Use self-hosted Rosemartin Regular for h1, h2 and display text. Use Manrope for paragraphs, h3–h6, navigation, buttons, property facts and other supporting information. Preserve Cormorant Garamond Bold for the Padathil Stays wordmark in the top bar. Rosemartin ships only in its supplied regular style: avoid synthetic bold or italic. Heading line-height is at least 1.08 and tracking is -0.02em; balance headings and allow natural wrapping. Property hero headings use a responsive maximum of 5rem with a 2.5rem mobile starting size. The homepage heading uses clamp(1.4rem, 7.2vw, 5rem) and 1.14 line-height to keep its two phrases proportional across screen sizes. Keep the established body reading measures and responsive layout. The original Rosemartin OTF and its license are in fonts/; do not modify the font software.
