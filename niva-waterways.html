@@ -2,6 +2,8 @@
 <html lang="en-IN">
 <head>
 <meta charset="UTF-8" />
+<meta name="color-scheme" content="only light" />
+<meta name="darkreader-lock" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Niva Waterways | Alleppey Villa &amp; Backwater Stay</title>
 <meta name="description" content="Experience a private lake-facing villa at Niva Waterways near Cherthala and Vaikom, with Alleppey views and exciting water activities." />
@@ -22,13 +24,16 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="site.css" />
 <link rel="stylesheet" href="riparian.css" />
+<link rel="preload" href="fonts/Rosemartin-Regular.otf" as="font" type="font/otf" crossorigin />
 <link rel="stylesheet" href="theme-ivory.css" />
+<link rel="stylesheet" href="atlas-premium.css" />
+<link rel="stylesheet" href="glance-premium.css" />
+<link rel="stylesheet" href="resort-typography.css" />
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
 <script src="site.js" defer></script>
 
 </head>
@@ -180,7 +185,7 @@
     </div>
   </section>
 
-  <section class="nc-glance" aria-labelledby="niva-at-a-glance">
+  <section class="nc-glance glance-premium" aria-labelledby="niva-at-a-glance">
     <div class="wrap nc-wide">
       <h2 id="niva-at-a-glance" class="text-center">At a Glance</h2>
       <dl class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 property-facts">
@@ -205,10 +210,12 @@
   </section>
 
   <!-- ================= EXPLORE NEARBY ================= -->
-  <section class="explorer-section bg-creamalt py-[60px] riparian-explorer" aria-labelledby="nearby-title">
+  <section class="explorer-section bg-creamalt py-[60px] riparian-explorer atlas-premium" aria-labelledby="nearby-title">
     <div class="wrap max-w-[1100px]">
-      <h2 id="nearby-title" class="text-center pb-2">Nearby Sightseeing Around Niva Waterways</h2>
-      <p class="body-copy text-center explorer-intro">Find Niva on the backwaters, then choose a nearby place for an unhurried day out.</p>
+      <div class="atlas-section-heading">
+        <h2 id="nearby-title" class="pb-2">Nearby Sightseeing Around Niva Waterways</h2>
+        <p class="body-copy explorer-intro">Find Niva on the backwaters, then choose a nearby place for an unhurried day out.</p>
+      </div>
 
       <div class="nearby-explorer" data-nearby-explorer>
         <div class="explorer-map resort-atlas" aria-label="Resort location and nearby places">
@@ -221,7 +228,7 @@
             <svg class="local-connections" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line data-map-connection x1="50.57" y1="54.81" x2="45.23" y2="72.50" /></svg>
             <span class="local-river-label" aria-hidden="true">Arabian Sea</span>
             <button class="local-compass" type="button" data-compass aria-label="North is up. Reveal a field note"><svg viewBox="0 0 32 42" aria-hidden="true"><path d="M16 8L8 30l8-5 8 5Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16 8v17" stroke="currentColor"/></svg><span>N</span></button>
-            <button class="local-pin local-pin--home local-pin--east" style="--pin-x:50.57%;--pin-y:54.81%" type="button" data-map-home aria-label="Niva Waterways, your starting point"><span class="local-marker">N</span><span class="local-pin-label">Niva<span>Your starting point</span></span></button>
+            <button class="local-pin local-pin--home local-pin--east" style="--pin-x:50.57%;--pin-y:54.81%" type="button" data-map-home aria-label="Niva Waterways, your starting point"><span class="local-marker"><img src="images/resort-map-marker.svg" alt="" width="48" height="48" /></span><span class="local-pin-label">Niva<span>Your starting point</span></span></button>
             <button class="local-pin is-active local-pin--east" style="--pin-x:45.23%;--pin-y:72.50%" type="button" data-place="mararikulam" data-map-x="45.23" data-map-y="72.50" aria-controls="explorer-detail" aria-pressed="true"><span class="local-marker" aria-hidden="true"><svg viewBox="0 0 30 40"><path d="M15 1.5C8 1.5 2.5 7.1 2.5 14.1c0 9.4 12.5 24.4 12.5 24.4s12.5-15 12.5-24.4C27.5 7.1 22 1.5 15 1.5Z"/><circle cx="15" cy="14" r="4.3"/></svg></span><span class="local-pin-label">Mararikulam Beach</span></button>
             <button class="local-pin local-pin--east" style="--pin-x:45.45%;--pin-y:61.35%" type="button" data-place="arthunkal" data-map-x="45.45" data-map-y="61.35" aria-controls="explorer-detail" aria-pressed="false"><span class="local-marker"></span><span class="local-pin-label">Arthunkal Church</span></button>
             <button class="local-pin" style="--pin-x:56.82%;--pin-y:58.85%" type="button" data-place="thanneermukkom" data-map-x="56.82" data-map-y="58.85" aria-controls="explorer-detail" aria-pressed="false"><span class="local-marker"></span><span class="local-pin-label">Thanneermukkom Bund</span></button>
@@ -232,7 +239,10 @@
           </div>
           <div class="atlas-caption"><p id="map-status" aria-live="polite">A little time by the water.</p><a href="https://maps.app.goo.gl/X5cxGD6m35pCrXHMA?g_st=ic" target="_blank" rel="noopener">Resort directions ↗</a></div>
           <p class="atlas-help" id="atlas-disclaimer">A local field guide. Select a marker to explore. Place positions are approximate and connections show direction, not roads; distances are approximate road distances. Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>.</p>
-          <div class="atlas-places" role="group" aria-label="Explore nearby places">
+        </div>
+
+        <div class="atlas-places" role="group" aria-label="Explore nearby places">
+          <div class="atlas-places-heading"><h3>Nearby places</h3><p>Choose a place to explore</p></div>
           <button class="explorer-pin is-active" type="button" data-place="mararikulam" aria-controls="explorer-detail" aria-pressed="true">
             <span class="explorer-pin-dot" aria-hidden="true"></span><span>Mararikulam Beach</span>
           </button>
@@ -251,7 +261,6 @@
           <button class="explorer-pin" type="button" data-place="kochi" aria-controls="explorer-detail" aria-pressed="false">
             <span class="explorer-pin-dot" aria-hidden="true"></span><span>Kochi</span>
           </button>
-          </div>
         </div>
 
         <article id="explorer-detail" class="explorer-detail" aria-live="polite">

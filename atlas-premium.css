@@ -1,0 +1,274 @@
+/* The three property maps share one editorial field-guide layout. */
+.riparian-explorer.atlas-premium {
+  padding-block: clamp(76px, 9vw, 128px) !important;
+  background: #e8e3d5 !important;
+}
+.riparian-page .riparian-explorer.atlas-premium { background: #e8e3d5 !important; }
+.riparian-explorer.atlas-premium .wrap { max-width: 1320px !important; min-width: 0; }
+.atlas-premium .atlas-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+  gap: clamp(28px, 6vw, 90px);
+  align-items: end;
+  padding: 0 0 clamp(30px, 4vw, 52px);
+  border-top: 1px solid #9b9d86;
+}
+.atlas-premium .atlas-section-heading h2 {
+  min-width: 0;
+  max-width: 15ch;
+  margin: 28px 0 0;
+  padding: 0;
+  color: #102c24;
+  font-size: clamp(2.8rem, 5.2vw, 5.2rem) !important;
+  line-height: .98;
+  letter-spacing: -.035em;
+  text-align: left;
+}
+.atlas-premium .atlas-section-heading .explorer-intro {
+  min-width: 0;
+  max-width: 38ch;
+  margin: 0 0 4px;
+  padding-left: clamp(20px, 3vw, 36px);
+  border-left: 1px solid #a7623c;
+  color: #34483e;
+  font-size: clamp(.96rem, 1.3vw, 1.08rem);
+  line-height: 1.7;
+  text-align: left !important;
+}
+.riparian-explorer.atlas-premium .nearby-explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(340px, .82fr);
+  grid-template-areas: "map detail" "places detail";
+  align-items: stretch;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #c9c5b4 !important;
+  background: #f6f1e6 !important;
+  box-shadow: 0 24px 54px rgba(16,44,36,.11) !important;
+}
+.riparian-explorer.atlas-premium .resort-atlas {
+  grid-area: map;
+  min-width: 0;
+  min-height: 0;
+  border: 0 !important;
+  border-right: 1px solid #c9c5b4 !important;
+  background: #f6f1e6;
+  box-shadow: none;
+}
+.atlas-premium .atlas-arrival,
+:is(.riparian-page, .nc-page) .atlas-premium .atlas-arrival {
+  min-height: 102px;
+  padding: 24px clamp(24px, 3vw, 38px);
+  border: 0;
+  background: #102c24;
+  color: #fff8eb;
+}
+:is(.riparian-page, .nc-page) .atlas-premium .atlas-arrival > div::before {
+  color: #d9bd84;
+  content: "Your base";
+}
+.riparian-explorer.atlas-premium .atlas-arrival h3,
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium .atlas-arrival h3 {
+  color: #fff8eb !important;
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+}
+.atlas-premium .atlas-arrival p,
+:is(.riparian-page, .nc-page) .atlas-premium .atlas-arrival p { color: #d9e1c9; }
+.atlas-premium .atlas-directions,
+:is(.riparian-page, .nc-page) .atlas-premium .atlas-directions {
+  color: #e6c993;
+  border-color: #c9a466;
+}
+.atlas-premium .atlas-directions:hover { color: #fff8eb; }
+.atlas-premium .local-landscape { height: clamp(410px, 40vw, 510px); }
+.atlas-premium .atlas-caption { padding: 22px clamp(24px, 3vw, 38px) 0; }
+.atlas-premium .atlas-help { padding-inline: clamp(24px, 3vw, 38px); margin-bottom: 22px; }
+.riparian-explorer.atlas-premium .atlas-places {
+  grid-area: places;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 18px;
+  min-width: 0;
+  padding: 0 clamp(24px, 3vw, 38px) 28px;
+  border: 0;
+  border-right: 1px solid #c9c5b4;
+  background: #f6f1e6;
+  counter-reset: none;
+}
+.atlas-premium .atlas-places-heading {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0 12px;
+  border-top: 1px solid #c9c5b4;
+}
+.atlas-premium .atlas-places-heading h3 {
+  margin: 0;
+  color: #102c24;
+  font: 500 clamp(1.7rem, 2.2vw, 2.1rem)/1 'Manrope', sans-serif;
+}
+.atlas-premium .atlas-places-heading p {
+  margin: 0;
+  color: #52665a;
+  font: 600 .68rem/1.3 Manrope, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin,
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium .atlas-places .explorer-pin {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  min-height: 56px;
+  max-width: none;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid #cfcebe;
+  background: transparent;
+  box-shadow: none;
+  color: #102c24;
+  font: 600 clamp(1.18rem, 1.55vw, 1.42rem)/1.08 'Manrope', sans-serif;
+  text-align: left;
+  transition: color .2s ease, padding-left .2s ease;
+}
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin::before,
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin::after { content: none; }
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin .explorer-pin-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border: 1px solid #a7623c;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+}
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin:hover,
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin:focus-visible,
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin.is-active {
+  padding-left: 6px;
+  color: #8b4b2c;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.riparian-explorer.atlas-premium .atlas-places .explorer-pin.is-active .explorer-pin-dot {
+  background: #a7623c;
+  box-shadow: 0 0 0 3px rgba(167,98,60,.12);
+}
+.riparian-explorer.atlas-premium .explorer-detail {
+  grid-area: detail;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #102c24;
+  color: #fff8eb;
+  box-shadow: none;
+}
+.atlas-premium .explorer-detail-image,
+:is(.riparian-page, .nc-page) .atlas-premium .explorer-detail-image {
+  flex: 0 0 auto;
+  height: clamp(250px, 29vw, 350px);
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.atlas-premium .explorer-detail-image img,
+:is(.riparian-page, .nc-page) .atlas-premium .explorer-detail-image img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  object-fit: cover;
+}
+.atlas-premium .explorer-detail-copy,
+:is(.riparian-page, .nc-page) .atlas-premium .explorer-detail-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(30px, 3.5vw, 48px);
+}
+.atlas-premium .explorer-detail-number,
+:is(.riparian-page, .nc-page) .atlas-premium .explorer-detail-number { color: #e6c993; }
+.riparian-explorer.atlas-premium .explorer-detail h3,
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium .explorer-detail h3 {
+  margin: 16px 0 15px;
+  color: #fff8eb !important;
+  font-size: clamp(2.25rem, 3.2vw, 3.2rem);
+  line-height: .98;
+}
+.riparian-explorer.atlas-premium .explorer-detail .body-copy,
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium .explorer-detail .body-copy {
+  color: #d9e1d3 !important;
+  margin-right: 0;
+  margin-left: 0;
+  text-align: left !important;
+}
+.atlas-premium .explorer-facts,
+:is(.riparian-page, .nc-page) .atlas-premium .explorer-facts {
+  margin: 32px 0;
+  border-color: rgba(255,248,235,.25);
+}
+.atlas-premium .explorer-facts > div,
+:is(.riparian-page, .nc-page) .atlas-premium .explorer-facts > div {
+  grid-template-columns: minmax(110px, 38%) 1fr;
+  border-color: rgba(255,248,235,.25);
+}
+.riparian-explorer.atlas-premium dt,
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium dt { color: #e6c993; }
+.riparian-explorer.atlas-premium .explorer-detail dd,
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium .explorer-detail dd { color: #fff8eb !important; }
+.riparian-explorer.atlas-premium .explorer-map-link,
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium .explorer-map-link {
+  margin-top: auto;
+  color: #e6c993;
+  border-color: #c9a466;
+}
+.atlas-premium .explorer-map-link:hover { color: #fff8eb; }
+.atlas-premium :is(button, a):focus-visible { outline: 3px solid #a7623c; outline-offset: 3px; }
+@media (max-width: 900px) {
+  .atlas-premium .atlas-section-heading { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .atlas-premium .atlas-section-heading .explorer-intro { max-width: 60ch; }
+  .riparian-explorer.atlas-premium .nearby-explorer {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "map" "places" "detail";
+  }
+  .riparian-explorer.atlas-premium .resort-atlas,
+  .riparian-explorer.atlas-premium .atlas-places { border-right: 0 !important; }
+  .riparian-explorer.atlas-premium .atlas-places { border-bottom: 1px solid #c9c5b4; }
+  .atlas-premium .explorer-detail-image,
+  :is(.riparian-page, .nc-page) .atlas-premium .explorer-detail-image { height: clamp(250px, 42vw, 390px); }
+}
+@media (max-width: 580px) {
+  .riparian-explorer.atlas-premium { padding-block: 68px !important; }
+  .atlas-premium .atlas-section-heading h2 { max-width: 100%; font-size: clamp(2.4rem, 10vw, 3.8rem) !important; overflow-wrap: anywhere; }
+  .atlas-premium .atlas-section-heading .explorer-intro { padding-left: 18px; }
+  .atlas-premium .atlas-arrival,
+  :is(.riparian-page, .nc-page) .atlas-premium .atlas-arrival { min-height: 0; align-items: flex-start; flex-direction: column; gap: 16px; padding: 22px; }
+  .atlas-premium .local-landscape { height: 440px; }
+  .atlas-premium .local-pin:not(.local-pin--home):not(.is-active):not(:hover):not(:focus-visible) .local-pin-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .atlas-premium .atlas-caption { padding-inline: 22px; }
+  .atlas-premium .atlas-help { padding-inline: 22px; }
+  .riparian-explorer.atlas-premium .atlas-places { grid-template-columns: 1fr; padding-inline: 22px; }
+  .atlas-premium .atlas-places-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .riparian-explorer.atlas-premium .atlas-places .explorer-pin { min-height: 49px; }
+  .atlas-premium .explorer-detail-image,
+  :is(.riparian-page, .nc-page) .atlas-premium .explorer-detail-image { height: 250px; }
+  .atlas-premium .explorer-detail-copy,
+  :is(.riparian-page, .nc-page) .atlas-premium .explorer-detail-copy { padding: 28px 24px 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .riparian-explorer.atlas-premium .atlas-places .explorer-pin { transition: none; }
+}

@@ -1,0 +1,58 @@
+/* Resort-page type scale. Loaded only on Nature Castle, Niva and Riparian. */
+:is(.nc-page, body.riparian-page) h2 {
+  font-size: clamp(1.625rem, 2.6vw, 2.25rem) !important;
+  line-height: 1.16;
+  letter-spacing: -.02em !important;
+  text-wrap: balance;
+}
+.nc-page .riparian-hero h1,
+.riparian-page .riparian-hero h1 {
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem) !important;
+  line-height: 1.12;
+}
+:is(.nc-page, .riparian-page) .nc-signature h2 { max-width: 28ch; }
+:is(.nc-page, .riparian-page) .riparian-story h2,
+.riparian-page .riparian-close h2 {
+  font-size: clamp(1.625rem, 2.6vw, 2.25rem) !important;
+  line-height: 1.16;
+}
+
+/* Keep long place names readable in the narrow map and detail columns. */
+.riparian-explorer.atlas-premium .atlas-section-heading h2,
+.riparian-page .riparian-explorer .atlas-section-heading h2 {
+  max-width: 100%;
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem) !important;
+  line-height: 1.16;
+}
+:is(.riparian-page, .nc-page) .riparian-explorer.atlas-premium .explorer-detail h3 {
+  font-size: clamp(1.25rem, 1.9vw, 1.625rem) !important;
+  line-height: 1.3;
+}
+:is(.riparian-page, .nc-page) .atlas-premium .atlas-arrival h3,
+:is(.riparian-page, .nc-page) .atlas-premium .atlas-places-heading h3 {
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem) !important;
+  line-height: 1.35;
+}
+
+/* Supporting information stays visibly smaller than section titles. */
+:is(.nc-page, .riparian-page) .nc-spec-name h3 {
+  font-size: clamp(1.125rem, 1.7vw, 1.5rem) !important;
+  line-height: 1.3;
+}
+:is(.nc-page, .riparian-page) .nc-acts figcaption {
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.45;
+}
+:is(.nc-page, .riparian-page) .nc-facts dd {
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.5;
+}
+:is(.nc-page, .riparian-page) .nc-count b {
+  font-size: clamp(3rem, 4vw, 3.5rem);
+  line-height: 1;
+}
+.nc-page .glance-premium h2,
+.riparian-page .glance-premium h2 {
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem) !important;
+  line-height: 1.2;
+}

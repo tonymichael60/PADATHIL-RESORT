@@ -1,0 +1,107 @@
+/* A compact reference band for the three resort pages. */
+.glance-premium {
+  position: relative;
+  padding: 0 !important;
+  overflow: hidden;
+  background: #102c24 !important;
+}
+.glance-premium::before { display: none; }
+.glance-premium .wrap {
+  display: grid;
+  grid-template-columns: minmax(190px, .72fr) minmax(0, 3.28fr);
+  max-width: 1440px !important;
+  margin: 0 auto;
+  padding: 0 !important;
+  border: 0;
+}
+.glance-premium h2,
+.riparian-page .glance-premium h2 {
+  display: grid;
+  align-content: center;
+  min-height: 154px;
+  margin: 0;
+  padding: clamp(28px, 3vw, 46px) clamp(22px, 3vw, 46px) !important;
+  border-right: 1px solid rgba(255,248,235,.25);
+  color: #fff8eb !important;
+  font: 500 clamp(1.5rem, 2.1vw, 2rem)/1.05 'Manrope', sans-serif !important;
+  letter-spacing: -.025em !important;
+  text-align: left !important;
+}
+.glance-premium h2::after { display: none; }
+.glance-premium .property-facts,
+.riparian-page .glance-premium .property-facts {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 !important;
+  margin: 0;
+  border: 0;
+  background: transparent !important;
+}
+.glance-premium .property-facts > div,
+.riparian-page .glance-premium .property-facts > div {
+  min-height: 154px;
+  padding: clamp(28px, 3vw, 46px) clamp(20px, 2.35vw, 36px);
+  border: 0 !important;
+  border-right: 1px solid rgba(255,248,235,.19) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.glance-premium .property-facts > div:last-child,
+.riparian-page .glance-premium .property-facts > div:last-child { border-right: 0 !important; }
+.glance-premium .property-facts dt,
+.riparian-page .glance-premium .property-facts dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e6c993 !important;
+  font: 800 .62rem/1.2 Manrope, sans-serif !important;
+  letter-spacing: .16em !important;
+  text-align: left;
+  text-transform: uppercase;
+}
+.glance-premium .property-facts dt::before {
+  display: block;
+  width: 14px;
+  height: 1px;
+  flex: 0 0 14px;
+  background: currentColor;
+  content: '';
+}
+.glance-premium .property-facts dd,
+.riparian-page .glance-premium .property-facts dd {
+  max-width: 22ch;
+  min-height: 0;
+  margin: 14px 0 0;
+  color: #fff8eb !important;
+  font: 500 clamp(1.08rem, 1.24vw, 1.3rem)/1.32 'Manrope', sans-serif !important;
+  text-align: left;
+}
+@media (max-width: 1080px) {
+  .glance-premium .wrap { grid-template-columns: minmax(175px, .64fr) minmax(0, 2.36fr); }
+  .glance-premium .property-facts,
+  .riparian-page .glance-premium .property-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .glance-premium .property-facts > div,
+  .riparian-page .glance-premium .property-facts > div { min-height: 126px; padding: 24px 28px; border-bottom: 1px solid rgba(255,248,235,.19) !important; }
+  .glance-premium .property-facts > div:nth-child(2n),
+  .riparian-page .glance-premium .property-facts > div:nth-child(2n) { border-right: 0 !important; }
+  .glance-premium .property-facts > div:nth-last-child(-n+2),
+  .riparian-page .glance-premium .property-facts > div:nth-last-child(-n+2) { border-bottom: 0 !important; }
+}
+@media (max-width: 680px) {
+  .glance-premium .wrap { grid-template-columns: 1fr; }
+  .glance-premium h2,
+  .riparian-page .glance-premium h2 { min-height: 0; padding: 25px 20px 22px !important; border-right: 0; border-bottom: 1px solid rgba(255,248,235,.25); font-size: 1.45rem !important; }
+  .glance-premium .property-facts > div,
+  .riparian-page .glance-premium .property-facts > div { padding: 22px 20px; }
+}
+@media (max-width: 460px) {
+  .glance-premium .property-facts,
+  .riparian-page .glance-premium .property-facts { grid-template-columns: 1fr; }
+  .glance-premium .property-facts > div,
+  .riparian-page .glance-premium .property-facts > div { min-height: 0; border-right: 0 !important; border-bottom: 1px solid rgba(255,248,235,.19) !important; }
+  .glance-premium .property-facts > div:last-child,
+  .riparian-page .glance-premium .property-facts > div:last-child { border-bottom: 0 !important; }
+  .glance-premium .property-facts dd,
+  .riparian-page .glance-premium .property-facts dd { max-width: 30ch; }
+}

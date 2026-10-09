@@ -504,15 +504,6 @@
   });
 })();
 
-// Momentum scrolling is used on the home and selected interior pages.
-(() => {
-  if (!(document.getElementById('welcome') || document.querySelector('.nc-page') || document.querySelector('.blog-grid') || document.querySelector('.about-hero') || document.querySelector('.contact-hero') || document.querySelector('.faq-list')) || !window.Lenis) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9, anchors: { offset: -92 } });
-  const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
-  requestAnimationFrame(raf);
-})();
-
 // FAQ accordion: opening one question closes the others, and answers fade out as they close.
 (() => {
   const items = [...document.querySelectorAll('.faq-list details')];

@@ -3,6 +3,37 @@
   "generatedAt": "2026-09-30T00:00:00+05:30",
   "title": "Design System: Padathil Stays — Riparian Ayur Resorts",
   "extensions": {
+    "surfaces": {
+      "gallery": {
+        "route": "gallery.html",
+        "updatedAt": "2026-10-09",
+        "mode": "Experience",
+        "scope": "User-pinned minimal photographic gallery, built code-led after the explicit request for a new interface; gallery-only exception to the Riparian palette and shared Rosemartin display rules.",
+        "tokenRefs": {
+          "surface": "components.gallery-surface",
+          "title": "typography.gallery-title",
+          "titleMobile": "typography.gallery-title-mobile",
+          "caption": "typography.gallery-caption",
+          "secondary": "typography.gallery-secondary",
+          "copy": "colors.gallery-copy",
+          "rule": "colors.gallery-rule"
+        },
+        "layout": {
+          "container": "min(1320px, calc(100% - 96px))",
+          "grid": "Three factual property chapters; asymmetric 12-column photo pairs with landscape and portrait aspect ratios; 22px column and 46px row gaps.",
+          "at900": "24px gutters; 16px column and 34px row gaps.",
+          "at600": "18px gutters; one column with natural image proportions and 29px row gaps; native collection select."
+        },
+        "rules": [
+          "Use Manrope at every level, including the title and local navigation wordmark.",
+          "Keep photography flat and unadorned, without card shells, shadows, grain or decorative overlays.",
+          "All stays opens with Nature Castle Resort (six), Niva Waterways (two) and Riparian Ayur Resorts (two) as factual chapters; six representative or promotional photos belong to More moments with honest captions.",
+          "Synchronize desktop filters and the mobile native select; announce the result count.",
+          "Contain the uncropped viewer photograph and navigate only the selected collection, with wraparound, keyboard, swipe, focus containment and return, and inert background.",
+          "Provide loading and error/retry feedback, descriptive alternatives, direct photo links without JavaScript, reduced motion and the WhatsApp request for current room photos."
+        ]
+      }
+    },
     "colorMeta": {
       "botanical-ink": { "role": "primary", "displayName": "Botanical Ink", "canonical": "#102c24", "tonalRamp": ["oklch(15% 0.025 155)", "oklch(25% 0.03 155)", "oklch(35% 0.035 155)", "oklch(45% 0.04 155)", "oklch(55% 0.04 155)", "oklch(68% 0.035 155)", "oklch(82% 0.025 155)", "oklch(95% 0.012 155)"] },
       "botanical-ink-deep": { "role": "neutral", "displayName": "Deep Forest Ink", "canonical": "#071914", "tonalRamp": ["oklch(10% 0.02 155)", "oklch(18% 0.025 155)", "oklch(28% 0.03 155)", "oklch(38% 0.035 155)", "oklch(50% 0.035 155)", "oklch(65% 0.03 155)", "oklch(80% 0.02 155)", "oklch(94% 0.01 155)"] },

@@ -1,0 +1,88 @@
+/* Loaded only by Riparian; matches the Nature Castle and Niva resort theme. */
+body.riparian-page {
+  --riparian-paper: var(--ivory);
+  --riparian-ink: var(--char);
+  --riparian-ink-deep: #071914;
+  --riparian-brass: var(--gold-light);
+  --riparian-line: var(--line);
+  background: var(--ivory) !important;
+  color: var(--char) !important;
+}
+body.riparian-page :is(.bg-white, .riparian-arrival, .riparian-story, .nc-signature, .rp-strip) {
+  background: var(--ivory) !important;
+}
+body.riparian-page .bg-creamalt { background: var(--ivory-2) !important; }
+.riparian-page .body-copy { color: var(--char-soft); }
+
+/* Use the same readable intro and section rhythm as the other two stays. */
+.riparian-page .riparian-arrival { padding-block: clamp(64px, 8vw, 110px) !important; }
+.riparian-page .riparian-lede {
+  max-width: 65ch;
+  margin-inline: auto;
+  color: var(--char-soft) !important;
+  font-size: clamp(1rem, 1.3vw, 1.12rem) !important;
+  line-height: 1.85 !important;
+}
+.riparian-page .riparian-arrival-actions { margin-top: 32px; }
+.riparian-page .riparian-hero h1 {
+  font-size: clamp(2.6rem, 6.5vw, 4.8rem);
+  color: var(--ivory) !important;
+}
+.riparian-page .riparian-hero h1 em { color: var(--gold-light) !important; }
+.riparian-page :is(.riparian-location, .riparian-hero-note) { color: var(--gold-light) !important; }
+.riparian-page .section-kicker { color: #806238 !important; }
+.riparian-page .riparian-hero .riparian-location { color: var(--gold-light) !important; }
+
+/* Gold outlines on ivory, with light labels over the hero photograph. */
+.riparian-page .riparian-action {
+  background: transparent !important;
+  color: var(--char) !important;
+  border-color: var(--gold) !important;
+}
+.riparian-page .riparian-action:hover {
+  background: var(--char) !important;
+  color: var(--gold-light) !important;
+  border-color: var(--char) !important;
+}
+.riparian-page .riparian-hero .riparian-action {
+  color: var(--ivory) !important;
+  border-color: var(--gold-light) !important;
+}
+.riparian-page .riparian-hero .riparian-action:hover {
+  background: var(--gold) !important;
+  color: var(--char) !important;
+}
+
+/* Match the compact green facts band and shared field-guide colors. */
+body.riparian-page .riparian-facts-section.glance-premium {
+  padding: 0 !important;
+  background: #102c24 !important;
+}
+body.riparian-page .riparian-explorer.atlas-premium { background: #e8e3d5 !important; }
+.riparian-page .riparian-explorer .explorer-detail { background: #102c24 !important; }
+.riparian-page .riparian-explorer .atlas-section-heading h2 {
+  max-width: 100%;
+  font-size: clamp(2rem, 3.5vw, 3.6rem) !important;
+  line-height: 1.08;
+}
+
+/* The enquiry section returns to ivory, like Nature Castle and Niva. */
+body.riparian-page .riparian-close {
+  padding-block: clamp(64px, 8vw, 110px) !important;
+  background: var(--ivory) !important;
+}
+.riparian-page .riparian-close::before { display: none; }
+.riparian-page .riparian-close h2 {
+  font-size: clamp(2rem, 3.3vw, 3rem) !important;
+  color: var(--char) !important;
+}
+.riparian-page .riparian-close .body-copy { color: var(--char-soft) !important; }
+.riparian-page .site-footer { background: #102820 !important; }
+@media (max-width: 680px) {
+  .riparian-page .riparian-hero h1 { font-size: 2.6rem; }
+  .riparian-page .riparian-explorer .atlas-section-heading h2 { font-size: clamp(1.5rem, 6.5vw, 2.25rem) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .riparian-page .nc-slide { animation: none !important; opacity: 0; }
+  .riparian-page .nc-slide:first-child { opacity: 1; transform: none; }
+}
