@@ -561,7 +561,7 @@
         <div class="quick-enquiry-selects">
           <label>Stay preference
             <select name="property">
-              <option value="Not sure yet">Help me choose a stay</option>
+              <option value="" disabled hidden>Select a stay</option>
               <option value="Nature Castle Resort">Nature Castle Resort</option>
               <option value="Niva Waterways">Niva Waterways</option>
               <option value="Riparian Resort">Riparian Resort</option>
@@ -569,10 +569,9 @@
           </label>
           <label>How can we help?
             <select name="intent">
-              <option value="A stay">A stay</option>
+              <option value="" disabled hidden selected>Select an option</option>
               <option value="A group stay">A group stay</option>
               <option value="A celebration or special request">A celebration or special request</option>
-              <option value="Help choosing a stay">Help me choose</option>
             </select>
           </label>
         </div>
@@ -605,7 +604,7 @@
     if (/Nature Castle/i.test(message)) return 'Nature Castle Resort';
     if (/Niva Waterways/i.test(message)) return 'Niva Waterways';
     if (/Riparian/i.test(message)) return 'Riparian Resort';
-    return pageProperty || 'Not sure yet';
+    return pageProperty || '';
   };
   const setSelected = (name, value) => {
     const control = form.elements.namedItem(name);
@@ -616,9 +615,6 @@
     form.reset();
     error.hidden = true;
     setSelected('property', getPropertyFor(link));
-    if (/recommend|help.*choose/i.test(`${link.textContent} ${getMessageText(link)}`)) {
-      setSelected('intent', 'Help choosing a stay');
-    }
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else {
       dialog.setAttribute('open', '');
@@ -664,10 +660,10 @@
     const lines = [
       'Hello Padathil Stays,',
       '',
-      'I would like to enquire.',
-      `Stay: ${data.get('property')}`,
-      `Looking for: ${data.get('intent')}`
+      'I would like to enquire.'
     ];
+    if (data.get('property')) lines.push(`Stay: ${data.get('property')}`);
+    if (data.get('intent')) lines.push(`Looking for: ${data.get('intent')}`);
     if (checkIn) lines.push(`Check-in: ${readableDate(checkIn)}`);
     if (checkOut) lines.push(`Check-out: ${readableDate(checkOut)}`);
     if (data.get('guests')) lines.push(`Guests: ${data.get('guests')}`);
