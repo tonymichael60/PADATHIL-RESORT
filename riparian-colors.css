@@ -1,0 +1,50 @@
+/* Riparian's destination palette, after the shared theme and property layouts. */
+body.riparian-page {
+  --forest: #102c24;
+  --forest-deep: #071914;
+  --paper: #ece5d5;
+  --paper-deep: #d8d5bd;
+  --body: #34483e;
+  --brass: #806138;
+  --line: rgba(16, 44, 36, .22);
+  --hero-route: #c9a466;
+  background: var(--riparian-paper) !important;
+  color: var(--riparian-ink) !important;
+}
+.riparian-page :is(.riparian-arrival, .riparian-story, .nc-signature, .rp-strip) {
+  background: var(--riparian-paper) !important;
+}
+.riparian-page .riparian-explorer.atlas-premium { background: #bbc3a7 !important; }
+.riparian-page .riparian-facts-section.glance-premium { background: var(--riparian-ink) !important; }
+.riparian-page .riparian-close { background: var(--riparian-ink) !important; }
+.riparian-page :is(.riparian-close h2, .riparian-close .body-copy, .riparian-hero h1) {
+  color: #fff8eb !important;
+}
+.riparian-page .riparian-hero h1 em { color: #d9e1c9 !important; }
+.riparian-page :is(.riparian-location, .riparian-hero-note) { color: #e6c993 !important; }
+.riparian-page .section-kicker { color: #806138 !important; }
+.riparian-page .riparian-hero .riparian-location { color: #e6c993 !important; }
+.riparian-page .riparian-action {
+  background: var(--riparian-brass) !important;
+  color: var(--riparian-ink-deep) !important;
+  border-color: var(--riparian-brass) !important;
+}
+.riparian-page .riparian-action:hover {
+  background: #efd19a !important;
+  color: var(--riparian-ink-deep) !important;
+  border-color: #efd19a !important;
+}
+.riparian-page .riparian-action--light {
+  background: #fff8eb !important;
+  color: var(--riparian-ink) !important;
+  border-color: #fff8eb !important;
+}
+.riparian-page .riparian-explorer .explorer-detail {
+  background: var(--riparian-ink-deep) !important;
+  color: #fff8eb;
+}
+.riparian-page .site-footer { background: #102820 !important; }
+@media (prefers-reduced-motion: reduce) {
+  .riparian-page .nc-slide { animation: none !important; opacity: 0; }
+  .riparian-page .nc-slide:first-child { opacity: 1; transform: none; }
+}
