@@ -78,6 +78,25 @@ body.riparian-page .riparian-close {
 }
 .riparian-page .riparian-close .body-copy { color: var(--char-soft) !important; }
 .riparian-page .site-footer { background: #102820 !important; }
+
+/* Phone browsers commonly use a 980px viewport for "Desktop site".
+   Align the compact desktop layout with the explorer's 900px breakpoint. */
+@media (min-width: 901px) and (max-width: 1120px) {
+  .riparian-page .site-header .desktop-nav { display: flex; gap: 12px; }
+  .riparian-page .site-header .mobile-menu { display: none; }
+  .riparian-page .site-header .compact-header { gap: 16px; }
+}
+@media (min-width: 901px) and (max-width: 1080px) {
+  .riparian-page .glance-premium .property-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .riparian-page .glance-premium .property-facts > div {
+    min-height: 154px;
+    padding: 28px 20px;
+    border-bottom: 0 !important;
+  }
+  .riparian-page .glance-premium .property-facts > div:nth-child(2) {
+    border-right: 1px solid rgba(255,248,235,.19) !important;
+  }
+}
 @media (max-width: 680px) {
   .riparian-page .riparian-hero h1 { font-size: 2.6rem; }
   .riparian-page .riparian-explorer .atlas-section-heading h2 { font-size: clamp(1.5rem, 6.5vw, 2.25rem) !important; }
