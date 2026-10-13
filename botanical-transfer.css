@@ -41,7 +41,7 @@
   .botanical-page .botanical-hero__content h1 {
     font-size: clamp(2rem, 7.8vw, 3rem) !important;
   }
-  .botanical-page .botanical-hero__content p { font-size: .9rem; }
+  .botanical-page .botanical-hero__content p { font-size: 1rem; }
   .botanical-page.gallery-body .botanical-hero { margin-bottom: 36px; }
 }
 
